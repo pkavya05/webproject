@@ -1,0 +1,24 @@
+import boto3
+
+def lambda_handler(event, context):
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table('newtable')
+
+    for record in event['Records']:
+        bucket = record['s3']['bucket']['name']
+        file = record['s3']['object']['key']
+
+        table.put_item(
+            Item={
+                'unique': file,
+                'bucket': bucket
+            }
+        )
+
+
+  sudo su
+	sudo yum update -y
+	sudo yum install httpd -y   
+	systemctl start httpd 
+	systemctl enable httpd 
+	echo  "This is Server 1" > /var/www/html/index.html  
